@@ -1,0 +1,20 @@
+{
+  "CROSS_SCHEMA_BW": {
+    "object_owner" : {
+      "schema_privileges":[ 
+        { 
+          "reference":"SAPABAP1",
+          "privileges_with_grant_option":["SELECT","SELECT METADATA","SELECT CDS METADATA"]
+        }
+      ]
+    },
+    "application_user" : {
+      "schema_privileges":[ 
+        { 
+          "reference":"SAPABAP1",
+          "privileges_with_grant_option":["SELECT","SELECT METADATA","SELECT CDS METADATA"]
+        }         
+      ]
+    }
+  }
+}

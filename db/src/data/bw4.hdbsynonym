@@ -1,0 +1,8 @@
+{
+  "SalesBot.db.data::sales": {
+    "target": {
+      "object": "/BIC/AZADSO_NP7",
+      "schema": "SAPABAP1"
+    }
+  }
+}

@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="SalesBot.db.data::zsales" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="zsales"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="SalesBot.db.data::sales">
+    <resourceUri>SalesBot.db.data::sales</resourceUri>
+  </DataSource>
+  <DataSource id="SalesBot.db.data::SALES_ORG_TEXT">
+    <resourceUri>SalesBot.db.data::SALES_ORG_TEXT</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Sales_BW">
+    <viewAttributes>
+      <viewAttribute id="REQTSN"/>
+      <viewAttribute id="RECORDMODE"/>
+      <viewAttribute id="VBELN"/>
+      <viewAttribute id="POSNR"/>
+      <viewAttribute id="AUDAT"/>
+      <viewAttribute id="CALMONTH"/>
+      <viewAttribute id="CALYEAR"/>
+      <viewAttribute id="VKORG"/>
+      <viewAttribute id="KUNNR"/>
+      <viewAttribute id="KOSTL"/>
+      <viewAttribute id="KOKRS"/>
+      <viewAttribute id="MATNR"/>
+      <viewAttribute id="MATKL"/>
+      <viewAttribute id="NETWR"/>
+      <viewAttribute id="WAERK"/>
+      <viewAttribute id="NTGEW"/>
+      <viewAttribute id="GEWEI"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+    <input node="SalesBot.db.data::sales"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="CN_N" joinType="leftOuter">
+    <viewAttributes>
+      <viewAttribute id="VBELN"/>
+      <viewAttribute id="POSNR"/>
+      <viewAttribute id="AUDAT"/>
+      <viewAttribute id="CALMONTH"/>
+      <viewAttribute id="CALYEAR"/>
+      <viewAttribute id="VKORG"/>
+      <viewAttribute id="KUNNR"/>
+      <viewAttribute id="KOSTL"/>
+      <viewAttribute id="KOKRS"/>
+      <viewAttribute id="MATNR"/>
+      <viewAttribute id="MATKL"/>
+      <viewAttribute id="NETWR" aggregationType="sum"/>
+      <viewAttribute id="WAERK"/>
+      <viewAttribute id="NTGEW" aggregationType="sum"/>
+      <viewAttribute id="GEWEI"/>
+      <viewAttribute id="SALES_ORG_NAME"/>
+      <viewAttribute id="REGION"/>
+      <viewAttribute id="COUNTRY"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="MONTH_NAME" datatype="NVARCHAR" length="13" expressionLanguage="SQL">
+        <formula>CASE &quot;CALMONTH&quot; 
+	 WHEN '1' then 'January'
+	 WHEN '2' then 'Feb'
+	 WHEN '3' then 'March'
+	 WHEN '4' then 'April'
+	 WHEN '5' then 'May'
+	 WHEN '6' then 'June'
+	 WHEN '7' then 'July'
+	 WHEN '8' then 'August'
+	 WHEN '9' then 'Sep'
+	 WHEN '10' then 'Oct'
+	 WHEN '11' then 'November'
+	 
+	 ELSE 'December' 
+ END</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+    <input node="Sales_BW">
+      <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AUDAT" source="AUDAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CALYEAR" source="CALYEAR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="VKORG" source="VKORG"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="KOSTL" source="KOSTL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="KOKRS" source="KOKRS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NETWR" source="NETWR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="WAERK" source="WAERK"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NTGEW" source="NTGEW"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="GEWEI" source="GEWEI"/>
+    </input>
+    <input node="Sales_Org_Text">
+      <mapping xsi:type="Calculation:AttributeMapping" target="SALES_ORG_NAME" source="SALES_ORG_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REGION" source="REGION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COUNTRY" source="COUNTRY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="VKORG" source="SALES_ORG"/>
+    </input>
+    <joinAttribute name="VKORG"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Sales_Org_Text">
+    <viewAttributes>
+      <viewAttribute id="SALES_ORG"/>
+      <viewAttribute id="SALES_ORG_NAME"/>
+      <viewAttribute id="REGION"/>
+      <viewAttribute id="COUNTRY"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+    <input node="SalesBot.db.data::SALES_ORG_TEXT">
+      <mapping xsi:type="Calculation:AttributeMapping" target="SALES_ORG" source="SALES_ORG"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SALES_ORG_NAME" source="SALES_ORG_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REGION" source="REGION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COUNTRY" source="COUNTRY"/>
+    </input>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Join_1">
+  <attributes>
+    <attribute id="VBELN" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Sales Document no"/>
+      <keyMapping columnObjectName="Join_1" columnName="VBELN"/>
+    </attribute>
+    <attribute id="POSNR" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Item number"/>
+      <keyMapping columnObjectName="Join_1" columnName="POSNR"/>
+    </attribute>
+    <attribute id="AUDAT" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Date of Creation"/>
+      <keyMapping columnObjectName="Join_1" columnName="AUDAT"/>
+    </attribute>
+    <attribute id="CALMONTH" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Month"/>
+      <keyMapping columnObjectName="Join_1" columnName="CALMONTH"/>
+    </attribute>
+    <attribute id="CALYEAR" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Year"/>
+      <keyMapping columnObjectName="Join_1" columnName="CALYEAR"/>
+    </attribute>
+    <attribute id="VKORG" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Sales Org"/>
+      <keyMapping columnObjectName="Join_1" columnName="VKORG"/>
+    </attribute>
+    <attribute id="KUNNR" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Customer"/>
+      <keyMapping columnObjectName="Join_1" columnName="KUNNR"/>
+    </attribute>
+    <attribute id="KOSTL" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Cost Center"/>
+      <keyMapping columnObjectName="Join_1" columnName="KOSTL"/>
+    </attribute>
+    <attribute id="KOKRS" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Controlling Area"/>
+      <keyMapping columnObjectName="Join_1" columnName="KOKRS"/>
+    </attribute>
+    <attribute id="MATNR" order="10" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Material Number"/>
+      <keyMapping columnObjectName="Join_1" columnName="MATNR"/>
+    </attribute>
+    <attribute id="MATKL" order="11" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Material type"/>
+      <keyMapping columnObjectName="Join_1" columnName="MATKL"/>
+    </attribute>
+    <attribute id="WAERK" order="13" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Currency"/>
+      <keyMapping columnObjectName="Join_1" columnName="WAERK"/>
+    </attribute>
+    <attribute id="GEWEI" order="15" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Weight Unit"/>
+      <keyMapping columnObjectName="Join_1" columnName="GEWEI"/>
+    </attribute>
+  
+    <attribute id="SALES_ORG_NAME" order="16" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Sales Organisation name"/>
+      <keyMapping columnObjectName="Join_1" columnName="SALES_ORG_NAME"/>
+    </attribute>
+    <attribute id="REGION" order="17" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Region"/>
+      <keyMapping columnObjectName="Join_1" columnName="REGION"/>
+    </attribute>
+    <attribute id="COUNTRY" order="18" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Country"/>
+      <keyMapping columnObjectName="Join_1" columnName="COUNTRY"/>
+    </attribute>
+    <attribute id="MONTH_NAME" order="19" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Month name"/>
+      <keyMapping columnObjectName="Join_1" columnName="MONTH_NAME"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="NETWR" order="12" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Net Price"/>
+      <measureMapping columnObjectName="Join_1" columnName="NETWR"/>
+    </measure>
+    <measure id="NTGEW" order="14" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Net Weight"/>
+      <measureMapping columnObjectName="Join_1" columnName="NTGEW"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="221.11302679000914" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Sales_BW" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92.00000000000001" y="376.9999988079071"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="221.11302679000914" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="Sales_BW" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="166.66845703125"/>
+    </shape>
+    <shape modelObjectName="Sales_Org_Text" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="136.0234375"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Sales_Org_Text" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="302.00000000000006" y="376.9999988079071"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta charset="UTF-8">
+
+		<title>ui</title>
+
+		<script id="sap-ui-bootstrap"
+			src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+			data-sap-ui-libs="sap.m"
+			data-sap-ui-theme="sap_bluecrystal"
+			data-sap-ui-compatVersion="edge"
+			data-sap-ui-resourceroots='{"com.sap.bot.ui": "./"}'
+			data-sap-ui-frameOptions='trusted'>
+		</script>
+		
+		<script>
+        // create the button instance
+        window.onload=function(){
+        if(!document.getElementById('cai-webchat')){
+            var s =document.createElement("script");
+            s.setAttribute('id',"cai-webchat");
+            s.setAttribute('src',"https://cdn.cai.tools.sap/webchat/webchat.js");
+            s.setAttribute('channelId',"07a01763-5175-4484-9c81-7b3403157495");
+            s.setAttribute('token',"3a904c2255826063cc9c4c7835b9e8d0");
+            document.body.append(s);
+        }
+        }
+        </script>
+
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+
+		<script>
+			sap.ui.getCore().attachInit(function() {
+				new sap.m.Shell({
+					app: new sap.ui.core.ComponentContainer({
+						height : "100%",
+						name : "com.sap.bot.ui"
+					})
+				}).placeAt("content");
+			});
+		</script>
+	</head>
+
+	<body class="sapUiBody" id="content">
+	</body>
+
+</html>

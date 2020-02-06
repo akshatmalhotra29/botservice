@@ -1,0 +1,15 @@
+{
+  "name": "node-hello-world-approuter",  
+  "dependencies": {
+     "@sap/approuter": "5.1.0",
+     "express":"latest",
+    "@sap/xsenv": "1.2.9",
+    "@sap/hdbext": "latest",
+    "body-parser":"latest",
+    "passport":"*",
+    "@sap/xssec":"*"
+  },
+  "scripts": {
+     "start": "node node_modules/@sap/approuter/approuter.js"
+  } 
+} 
